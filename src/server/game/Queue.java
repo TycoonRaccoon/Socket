@@ -23,8 +23,8 @@ public class Queue {
   }
 
   public void remove(Player player) {
-    var lastPlayer = players[index];
-    players[index--] = null;
+    var lastPlayer = players[--index];
+    players[index] = null;
 
     var removedPlayerindex = player.getQueueIndex();
     players[removedPlayerindex] = lastPlayer;
