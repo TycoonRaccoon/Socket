@@ -22,8 +22,6 @@ public class Player {
   public Player(Socket socket) {
     try {
       this.socket = socket;
-      // this.input = new BufferedReader(new
-      // InputStreamReader(socket.getInputStream()));
       this.input = new Scanner(socket.getInputStream());
       this.output = new PrintStream(socket.getOutputStream());
     } catch (IOException e) {
@@ -31,4 +29,3 @@ public class Player {
     }
   }
 }
-// ? Usar Scanner para pegar inputs dos sockets
