@@ -56,7 +56,7 @@ public class Connection {
       try {
         return (Protocol<?>) input.readObject();
       } catch (ClassNotFoundException e) {
-        e.printStackTrace();
+        Logger.error(e);
         return null;
       }
     }
@@ -66,7 +66,7 @@ public class Connection {
     try {
       socket.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      Logger.error(e);
     }
   }
 

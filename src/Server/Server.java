@@ -20,7 +20,7 @@ public class Server {
         Logger.warn("Game not setted!");
       handleConnections();
     } catch (IOException e) {
-      e.printStackTrace();
+      Logger.error(e);
     }
   }
 
@@ -33,7 +33,7 @@ public class Server {
         game.addClient(clientSocket);
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      Logger.error(e);
     }
   }
 }

@@ -22,12 +22,12 @@ public class Heartbeat extends Thread {
       while (!this.isInterrupted()) {
         var msg = new Protocol<String>(Protocol.MessageType.HEARTBEAT, "ping");
         connection.send(msg);
-        Logger.info(Logger.color.white()
-            .underline(Logger.color.bold().purple("Heartbeat: ") + connection.getAddress() + " - ping"));
+        Logger
+            .info(Logger.color.white(Logger.color.bold().purple("Heartbeat: ") + connection.getAddress() + " - ping"));
         Thread.sleep(INTERVAL);
       }
     } catch (IOException | InterruptedException e) {
-      Logger.error(e);
+      Logger.warn(e);
       connection.close();
     }
 
