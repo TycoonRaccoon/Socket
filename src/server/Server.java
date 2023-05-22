@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 import server.game.Game;
-import server.oddOrEven.OddOrEven;
+import server.oddEven.OddEven;
 import util.Logger;
 
 public class Server {
@@ -15,9 +15,7 @@ public class Server {
   public void start() {
     try {
       serverSocket = new ServerSocket(PORT);
-      game = OddOrEven.getInstance();
-      if (game == null)
-        Logger.warn("Game not setted!");
+      game = OddEven.getInstance();
       handleConnections();
     } catch (IOException e) {
       Logger.error(e);

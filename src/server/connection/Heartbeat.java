@@ -7,7 +7,7 @@ import util.Logger;
 
 public class Heartbeat extends Thread {
   private Connection connection;
-  private static final long INTERVAL = 10 * 1000; // 10 seconds
+  private static final long INTERVAL = 10 * 100; // 1 second
 
   public Heartbeat(Connection connection) {
     this.setName("Heartbeat");
@@ -23,7 +23,7 @@ public class Heartbeat extends Thread {
         var msg = new Protocol<String>(Protocol.MessageType.HEARTBEAT, "ping");
         connection.send(msg);
         Logger
-            .info(Logger.color.white(Logger.color.bold().purple("Heartbeat: ") + connection.getAddress() + " - ping"));
+            .debug(Logger.color.white(Logger.color.bold().purple("Heartbeat: ") + connection.getAddress() + " - ping"));
         Thread.sleep(INTERVAL);
       }
     } catch (IOException | InterruptedException e) {

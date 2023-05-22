@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 // * https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html
 public class Logger {
-  private static LogLevel level = LogLevel.DEBUG;
+  private static LogLevel level = LogLevel.INFO;
 
   public static Color color = new Color();
 
