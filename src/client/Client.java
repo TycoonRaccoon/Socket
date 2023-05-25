@@ -2,6 +2,7 @@ package client;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import types.Protocol;
@@ -12,12 +13,13 @@ import types.oddEven.OddEvenReq.Type;
 import util.Logger;
 
 public class Client {
-  private int PORT = 8080;
+  private final String DEFAULT_IP = "localhost";
+  private final int DEFAULT_PORT = 8080;
   private Socket socket;
 
   public void start() {
     try {
-      socket = new Socket("localhost", PORT);
+      socket = getSocket();
       var connection = new Connection(socket);
       game(connection);
       socket.close();
@@ -29,6 +31,7 @@ public class Client {
   private void game(Connection connection) {
     Scanner scanner = new Scanner(System.in);
     try {
+      Logger.info(Logger.color.bold("Waiting game to start..."));
       while (true) {
         var ptl = connection.read();
         if (ptl.getType() != Protocol.MessageType.GAME)
@@ -101,5 +104,28 @@ public class Client {
         Logger.color.bold(result.getOtherPlayerChoice() + " - " + result.getOtherPlayerNumber());
 
     Logger.info(log);
+  }
+
+  private Socket getSocket() throws IOException {
+    Scanner scanner = new Scanner(System.in);
+    boolean isValid = true;
+    do {
+      try {
+        Logger.info(Logger.color.bold("Insert IP address (default localhost):"));
+        var ipInput = scanner.nextLine();
+        Logger.info(Logger.color.bold("Insert Port (default 8080):"));
+        var portInput = scanner.nextLine();
+
+        var ip = ipInput.isEmpty() ? DEFAULT_IP : ipInput;
+        var port = portInput.isEmpty() ? DEFAULT_PORT : Integer.valueOf(portInput);
+
+        return new Socket(ip, port);
+      } catch (UnknownHostException | NumberFormatException e) {
+        isValid = false;
+        Logger.info(Logger.color.bold().red("Invalid host address!"));
+      }
+    } while (!isValid);
+    scanner.close();
+    return null;
   }
 }
